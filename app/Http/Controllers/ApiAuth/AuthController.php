@@ -32,7 +32,17 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        
+        if ($user) {
+            return response()->json([
+                'status' => 'Request was successful',
+                'message' => 'User Created Successfully,Login to access the application',
+                'data' => $user
+            ], 201);
+        }
+        return response()->json([
+            'error' => 'Registration Failed',
+            'message' => 'An error has occurred during registration. Please try again.'
+        ], 422);
     }
 
     public function login(Request $request)
