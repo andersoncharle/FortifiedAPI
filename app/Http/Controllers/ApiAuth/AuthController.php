@@ -41,7 +41,7 @@ class AuthController extends Controller
             ], 201);
         }
         return response()->json([
-            'error' => 'Registration Failed',
+            'status' => 'Error has occurred && Registration Failed...',
             'message' => 'An error has occurred during registration. Please try again.'
         ], 422);
     }
@@ -56,13 +56,17 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (!Auth::attempt($credentials)) {
             //    unauthorized user
-            // 'Credentials do not match
-
+            return response()->json([
+                'status' => 'Error has occurred...',
+                'message' => 'Credentials do not match'
+            ], 401);
         }
         $user = User::where('email', $request->email)->first();
         $token = $user->createToken('Api Token of ' . $user->name)->plainTextToken;
 
         return $this->success(['role' => $user->roleRelation->role, "token" => $token]);
+
+        
     }
 
     /**
