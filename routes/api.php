@@ -30,4 +30,5 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('test-api', [AuthController::class, 'index']);
+    Route::post('logout', [AuthController::class, 'logout']);
 });
