@@ -56,14 +56,14 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (!Auth::attempt($credentials)) {
-            //    unauthorized user
+
             return response()->json([
                 'status' => 'Error has occurred...',
                 'message' => 'Email & Password does not match with out record.'
             ], 401);
         }
         $user = User::where('email', $request->email)->first();
-        $token = $user->createToken('Api Token of ' . $user->name)->plainTextToken;
+        $token = $user->createToken('ApiToken' . $user->name)->plainTextToken;
 
         return response()->json([
             'status' => 'Request was successful',
@@ -78,37 +78,5 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
 
         return response()->json(['message' => 'Logged out Successfully']);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
