@@ -26,4 +26,4 @@ Route::get('test-api', [AuthController::class, 'index']);
 
 Route::post('registration', [AuthController::class, 'registration']);
 
-Route::post('login', [AuthController::class, 'loginUser']);
+Route::post('login', [AuthController::class, 'login']);
