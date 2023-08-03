@@ -43,7 +43,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'Error has occurred && Registration Failed...',
             'message' => 'An error has occurred during registration. Please try again.'
-        ], 422);
+        ], 401);
     }
 
     public function login(Request $request)
