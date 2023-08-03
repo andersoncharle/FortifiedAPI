@@ -58,15 +58,18 @@ class AuthController extends Controller
             //    unauthorized user
             return response()->json([
                 'status' => 'Error has occurred...',
-                'message' => 'Credentials do not match'
+                'message' => 'Email & Password does not match with out record.'
             ], 401);
         }
         $user = User::where('email', $request->email)->first();
         $token = $user->createToken('Api Token of ' . $user->name)->plainTextToken;
 
-        return $this->success(['role' => $user->roleRelation->role, "token" => $token]);
-
-        
+        return response()->json([
+            'status' => 'Request was successful',
+            'message' => 'User Logged in Successfully',
+            'data' => $user,
+            "token" => $token
+        ], 200);
     }
 
     /**
