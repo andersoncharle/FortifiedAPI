@@ -13,10 +13,11 @@ class AuthController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $data = "code with anderson";
-        return response()->json($data, 200);
+        $user = User::where('user_id', $request->user()->user_id)->get();
+        return response()->json([$user, $data], 200);
     }
 
     public function registration(Request $request)
