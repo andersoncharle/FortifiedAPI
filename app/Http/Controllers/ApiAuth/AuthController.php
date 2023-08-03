@@ -18,7 +18,12 @@ class AuthController extends Controller
 
     public function registration(Request $request)
     {
-        
+
+    }
+
+    public function login(Request $request)
+    {
+
     }
 
     /**
