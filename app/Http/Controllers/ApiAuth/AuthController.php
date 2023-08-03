@@ -54,9 +54,15 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            //    authenticated user
+        if (!Auth::attempt($credentials)) {
+            //    unauthorized user
+            // 'Credentials do not match
+
         }
+        $user = User::where('email', $request->email)->first();
+        $token = $user->createToken('Api Token of ' . $user->name)->plainTextToken;
+
+        return $this->success(['role' => $user->roleRelation->role, "token" => $token]);
     }
 
     /**
